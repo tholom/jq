@@ -1654,6 +1654,9 @@ static jv f_current_filename(jq_state *jq, jv a) {
   jv_free(r);
   return jv_null();
 }
+
+extern jv f_md5(jq_state *jq, jv a);
+
 static jv f_current_line(jq_state *jq, jv a) {
   jv_free(a);
   return jq_util_input_get_current_line(jq);
@@ -1748,6 +1751,7 @@ static const struct cfunction function_list[] = {
   {(cfunction_ptr)f_gmtime, "gmtime", 1},
   {(cfunction_ptr)f_localtime, "localtime", 1},
   {(cfunction_ptr)f_now, "now", 1},
+  {(cfunction_ptr)f_md5, "md5", 1},
   {(cfunction_ptr)f_current_filename, "input_filename", 1},
   {(cfunction_ptr)f_current_line, "input_line_number", 1},
 };

@@ -3,6 +3,31 @@ jq
 
 jq is a lightweight and flexible command-line JSON processor.
 
+THIS FORK is a simple hack to add a string function 'md5', where the underlying function is written in [Zig](https://ziglang.org).
+I'm pretty much a n00b with Makefiles, let alone Zig. But the latter is truly awesome.
+
+Modified files:
+===============
+Makefile.am   -- is there a better way to do this? Let me know via pull request thingy.
+src/builtin.c -- just to add the extern C-ABI function f_md5 and register the jq function keyword 'md5'.
+README.md     -- this.
+
+Added file:
+===========
+src/f_md5.zig -- see this file for a few notes on how it was done (TL;DR: really easily. Did I mention Zig is awesome?)
+
+Example using hack:
+===================
+	$ ./jq -n '""|md5'
+	"d41d8cd98f00b204e9800998ecf8427e"
+
+compare (Mac md5, same as Linux md5sum):
+
+	$ echo -n | md5
+	d41d8cd98f00b204e9800998ecf8427e
+
+The rest of this README is unchanged from stedolan/jq. Thanks!
+
 [![Coverage Status](https://coveralls.io/repos/stedolan/jq/badge.svg?branch=master&service=github)](https://coveralls.io/github/stedolan/jq?branch=master),
 Unix: [![Build Status](https://travis-ci.org/stedolan/jq.svg?branch=master)](https://travis-ci.org/stedolan/jq),
 Windows: [![Windows build status](https://ci.appveyor.com/api/projects/status/mi816811c9e9mx29?svg=true)](https://ci.appveyor.com/project/stedolan/jq)

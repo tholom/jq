@@ -113,12 +113,16 @@ src/main.c: src/version.h
 src/builtin.inc: $(srcdir)/src/builtin.jq
 	mkdir -p src
 	$(AM_V_GEN) sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/^/"/' -e 's/$$/\\n"/' $(srcdir)/src/builtin.jq > $@
-src/builtin.o: src/builtin.inc
+
+src/builtin.o: src/builtin.inc src/f_md5.o
+
+src/f_md5.o: src/f_md5.zig
+	zig build-obj --strip -O ReleaseFast -femit-bin=$@ $<
 
 bin_PROGRAMS = jq
 jq_SOURCES = src/main.c src/version.h
 jq_LDFLAGS = -static-libtool-libs
-jq_LDADD = libjq.la -lm
+jq_LDADD = src/f_md5.o libjq.la -lm
 
 if WIN32
 jq_LDADD += -lshlwapi
