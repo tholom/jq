@@ -3,7 +3,11 @@ jq
 
 jq is a lightweight and flexible command-line JSON processor.
 
-THIS FORK is a simple hack to add a string function 'md5', where the underlying function is written in [Zig](https://ziglang.org).
+THIS FORK is a simple hack to add:
+ * a string function 'md5'
+ * a function 'rand' returning float64
+where the underlying functions are written in [Zig](https://ziglang.org).
+
 I'm pretty much a n00b with Makefiles, let alone Zig. But the latter is truly awesome.
 
 Modified files:
