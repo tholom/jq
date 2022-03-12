@@ -27,6 +27,7 @@ extern fn jv_string_value(jv) [*c]const u8;
 const std = @import("std");
 const Md5 = std.crypto.hash.Md5;
 const bufPrint = std.fmt.bufPrint;
+const RndGen = std.rand.DefaultPrng;
 
 // All the above, and most of the function f_md5 was made using 'zig translate-c' on builtin.c
 // What was needed from 'builtin.zig' (not included) was added in here to enable zig-native compile.
@@ -40,4 +41,15 @@ pub export fn f_md5(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
     _ = bufPrint(&b, "{}", .{std.fmt.fmtSliceHexLower(&buf)}) catch unreachable;
     var ret: jv = jv_string_sized(&b, 32);
     return ret;
+}
+
+extern fn jv_free(jv) void;
+extern fn jv_number(f64) jv;
+
+// Based on f_now:
+pub export fn f_rand(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
+    var a = arg_a;
+    jv_free(a);
+    var rnd = RndGen.init(@intCast(u64, std.time.timestamp()));
+    return jv_number(rnd.random().float(f64));
 }
