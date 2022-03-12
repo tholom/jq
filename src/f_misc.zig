@@ -30,6 +30,8 @@ const bufPrint = std.fmt.bufPrint;
 const RndGen = std.rand.DefaultPrng;
 
 // All the above, and most of the function f_md5 was made using 'zig translate-c' on builtin.c
+// (You have to grab 'builtin.inc' from a build of the original jq).
+//
 // What was needed from 'builtin.zig' (not included) was added in here to enable zig-native compile.
 // All that was needed in f_md5 was to figure out the call to Md5.hash(...)
 pub export fn f_md5(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
@@ -46,7 +48,7 @@ pub export fn f_md5(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
 extern fn jv_free(jv) void;
 extern fn jv_number(f64) jv;
 
-// Based on f_now:
+// As above, based on f_now:
 pub export fn f_rand(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
     var a = arg_a;
     jv_free(a);

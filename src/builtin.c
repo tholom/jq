@@ -1655,7 +1655,9 @@ static jv f_current_filename(jq_state *jq, jv a) {
   return jv_null();
 }
 
+// Both defined in f_misc.zig:
 extern jv f_md5(jq_state *jq, jv a);
+extern jv f_rand(jq_state *jq, jv a);
 
 static jv f_current_line(jq_state *jq, jv a) {
   jv_free(a);
@@ -1752,6 +1754,7 @@ static const struct cfunction function_list[] = {
   {(cfunction_ptr)f_localtime, "localtime", 1},
   {(cfunction_ptr)f_now, "now", 1},
   {(cfunction_ptr)f_md5, "md5", 1},
+  {(cfunction_ptr)f_rand, "rand", 1},
   {(cfunction_ptr)f_current_filename, "input_filename", 1},
   {(cfunction_ptr)f_current_line, "input_line_number", 1},
 };

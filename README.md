@@ -9,15 +9,18 @@ I'm pretty much a n00b with Makefiles, let alone Zig. But the latter is truly aw
 Modified files:
 ===============
 * Makefile.am   -- is there a better way to do this? Let me know via pull request thingy.
-* src/builtin.c -- just to add the extern C-ABI function f_md5 and register the jq function keyword 'md5'.
+* src/builtin.c -- add the extern C-ABI functions f_md5, f_rand and register jq keywords 'md5', 'rand'.
 * README.md     -- this.
 
 Added file:
 ===========
-* src/f_md5.zig -- see this file for a few notes on how it was done (TL;DR: really easily. Did I mention Zig is awesome?)
+* src/f_misc.zig -- see this file for a few notes on how it was done (TL;DR: really easily. Did I mention Zig is awesome?)
 
 Example using hack:
 ===================
+	$ ./jq -n 'rand'
+	"1.2345e-01"
+
 	$ ./jq -n '""|md5'
 	"d41d8cd98f00b204e9800998ecf8427e"
 
