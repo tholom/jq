@@ -6,6 +6,7 @@ jq is a lightweight and flexible command-line JSON processor.
 THIS FORK is a simple hack to add:
  * a string function 'md5'
  * a function 'rand' returning float64
+
 where the underlying functions are written in [Zig](https://ziglang.org).
 
 I'm pretty much a n00b with Makefiles, let alone Zig. But the latter is truly awesome.
@@ -22,8 +23,9 @@ Added file:
 
 Example using hack:
 ===================
-	$ ./jq -n 'rand'
-	"1.2345e-01"
+	$ ./jq -n 'rand,rand'
+	0.9407224365467721
+	0.4601556075983295
 
 	$ ./jq -n '""|md5'
 	"d41d8cd98f00b204e9800998ecf8427e"
