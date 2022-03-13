@@ -52,6 +52,6 @@ extern fn jv_number(f64) jv;
 pub export fn f_rand(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
     var a = arg_a;
     jv_free(a);
-    var rnd = RndGen.init(@intCast(u64, std.time.timestamp()));
+    var rnd = RndGen.init(@intCast(u64, std.time.nanoTimestamp()));
     return jv_number(rnd.random().float(f64));
 }
