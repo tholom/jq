@@ -130,7 +130,7 @@ src/builtin.inc: $(srcdir)/src/builtin.jq
 src/builtin.o: src/builtin.inc src/f_misc.o
 
 src/f_misc.o: src/f_misc.zig
-	zig build-obj --strip -O ReleaseFast -femit-bin=$@ $<
+	zig build-obj -fstrip -O ReleaseFast -femit-bin=$@ $<
 
 CLEANFILES = src/version.h .remake-version-h src/builtin.inc src/config_opts.inc
 
