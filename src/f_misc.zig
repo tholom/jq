@@ -36,12 +36,12 @@ const RndGen = std.rand.DefaultPrng;
 // All that was needed in f_md5 was to figure out the call to Md5.hash(...)
 pub export fn f_md5(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
     if (jv_get_kind(arg_a) != JV_KIND_STRING) return jv_invalid_with_msg(jv_string("md5() requires string input"));
-    var alen: c_int = jv_string_length_bytes(arg_a);
+    const alen: c_int = jv_string_length_bytes(arg_a);
     var buf: [16]u8 = undefined;
-    Md5.hash(jv_string_value(arg_a)[0..@intCast(usize, alen)], &buf, .{});
+    Md5.hash(jv_string_value(arg_a)[0..@intCast(alen)], &buf, .{});
     var b: [32]u8 = undefined; // [32:0] doesn't seem to be needed for jv_string_sized(...)
     _ = bufPrint(&b, "{}", .{std.fmt.fmtSliceHexLower(&buf)}) catch unreachable;
-    var ret: jv = jv_string_sized(&b, 32);
+    const ret: jv = jv_string_sized(&b, 32);
     return ret;
 }
 
@@ -50,8 +50,8 @@ extern fn jv_number(f64) jv;
 
 // As above, based on f_now:
 pub export fn f_rand(_: ?*jq_state, arg_a: jv) callconv(.C) jv {
-    var a = arg_a;
+    const a = arg_a;
     jv_free(a);
-    var rnd = RndGen.init(@intCast(u64, std.time.nanoTimestamp()));
+    var rnd = RndGen.init(@intCast(std.time.nanoTimestamp()));
     return jv_number(rnd.random().float(f64));
 }
