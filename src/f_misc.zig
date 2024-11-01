@@ -27,7 +27,8 @@ extern fn jv_string_value(jv) [*c]const u8;
 const std = @import("std");
 const Md5 = std.crypto.hash.Md5;
 const bufPrint = std.fmt.bufPrint;
-const RndGen = std.rand.DefaultPrng;
+// zig<=0.13 //const RndGen = std.rand.DefaultPrng;
+const RndGen = std.Random.DefaultPrng; // zig==0.14(dev)
 
 // All the above, and most of the function f_md5 was made using 'zig translate-c' on builtin.c
 // (You have to grab 'builtin.inc' from a build of the original jq).
